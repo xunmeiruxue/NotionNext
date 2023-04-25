@@ -289,9 +289,9 @@ const BLOG = {
     title: process.env.NEXT_PUBLIC_NOTION_PROPERTY_TITLE || '标题', // 文章标题
     status: process.env.NEXT_PUBLIC_NOTION_PROPERTY_STATUS || '状态',
     status_publish:
-      process.env.NEXT_PUBLIC_NOTION_PROPERTY_STATUS_PUBLISH || 'Published', // 当status状态值与此相同时为发布，可以为中文
+      process.env.NEXT_PUBLIC_NOTION_PROPERTY_STATUS_PUBLISH || '发布', // 当status状态值与此相同时为发布，可以为中文
     status_invisible:
-      process.env.NEXT_PUBLIC_NOTION_PROPERTY_STATUS_INVISIBLE || 'Invisible', // 当status状态值与此相同时为隐藏发布，可以为中文 ， 除此之外其他页面状态不会显示在博客上
+      process.env.NEXT_PUBLIC_NOTION_PROPERTY_STATUS_INVISIBLE || '隐藏发布', // 当status状态值与此相同时为隐藏发布，可以为中文 ， 除此之外其他页面状态不会显示在博客上
     summary: process.env.NEXT_PUBLIC_NOTION_PROPERTY_SUMMARY || '摘要',
     slug: process.env.NEXT_PUBLIC_NOTION_PROPERTY_SLUG || '链接',
     category: process.env.NEXT_PUBLIC_NOTION_PROPERTY_CATEGORY || '分类',
