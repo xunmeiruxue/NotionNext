@@ -1,5 +1,5 @@
 import { useGlobal } from '@/lib/global'
-import { saveDarkModeToCookies } from '@/themes/theme'
+import { saveDarkModeToCookies } from '@/lib/theme'
 
 const DarkModeButton = (props) => {
   const { isDarkMode, updateDarkMode } = useGlobal()
@@ -13,8 +13,9 @@ const DarkModeButton = (props) => {
     htmlElement.classList?.add(newStatus ? 'dark' : 'light')
   }
 
-  return <div onClick={handleChangeDarkMode} className={'px-1 dark:text-gray-200 text-gray-800 z-10 duration-200 text-xl hover:scale-125 cursor-pointer transform ' + props.className}>
-    <i id='darkModeButton' className={`${isDarkMode ? 'far fa-sun' : 'far fa-moon'}`}/>
+  return <div className={'dark:text-gray-200 z-10 duration-200 text-xl py-2 ' + props.className}>
+    <i id='darkModeButton' className={`hover:scale-125 cursor-pointer transform duration-200 fas ${isDarkMode ? 'fa-sun' : 'fa-moon'}`}
+       onClick={handleChangeDarkMode} />
   </div>
 }
 export default DarkModeButton

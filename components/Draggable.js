@@ -1,15 +1,13 @@
-import { useRef, useEffect } from 'react'
+import React from 'react'
 /**
  * 可拖拽组件
  */
 
 export const Draggable = (props) => {
   const { children } = props
-  const draggableRef = useRef(null)
-  const rafRef = useRef(null)
-  let currentObj, offsetX, offsetY
+  let currentObj, offsetX, offsetY// 初始化变量，定义备用变量
 
-  useEffect(() => {
+  React.useEffect(() => {
     const draggableElements = document.getElementsByClassName('draggable')
 
     // 标准化鼠标事件对象
@@ -51,7 +49,6 @@ export const Draggable = (props) => {
       }
       if (currentObj) {
         if (event.type === 'touchstart') {
-          event.preventDefault() // 阻止默认的滚动行为
           document.documentElement.style.overflow = 'hidden' // 防止页面一起滚动
         }
         offsetX = event.mx - currentObj.offsetLeft
@@ -66,24 +63,20 @@ export const Draggable = (props) => {
 
     function move(event) { // 鼠标移动处理函数
       event = e(event)
-      rafRef.current = requestAnimationFrame(() => updatePosition(event))
-    }
-
-    const stop = (event) => {
-      event = e(event)
-      document.documentElement.style.overflow = 'auto' // 恢复默认的滚动行为
-      cancelAnimationFrame(rafRef.current)
-      currentObj = document.ontouchmove = document.ontouchend = document.onmousemove = document.onmouseup = null
-    }
-
-    const updatePosition = (event) => {
       if (currentObj) {
-        const left = event.mx - offsetX
-        const top = event.my - offsetY
-        currentObj.style.left = left + 'px'
-        currentObj.style.top = top + 'px'
+        const left = event.mx - offsetX// 定义拖动元素的x轴距离
+        const top = event.my - offsetY// 定义拖动元素的y轴距离
+        currentObj.style.left = left + 'px'// 定义拖动元素的x轴距离
+        currentObj.style.top = top + 'px'// 定义拖动元素的y轴距离
         checkInWindow()
       }
+    }
+
+    function stop(event) { // 松开鼠标处理函数
+      event = e(event)
+      //   释放所有操作对象
+      document.documentElement.style.overflow = 'auto' // 解除页面滚动限制
+      currentObj = document.ontouchmove = document.ontouchend = document.onmousemove = document.onmouseup = null
     }
 
     /**
@@ -133,12 +126,11 @@ export const Draggable = (props) => {
     return () => {
       return () => {
         window.removeEventListener('resize', checkInWindow)
-        cancelAnimationFrame(rafRef.current)
       }
     }
   }, [])
 
-  return <div className='draggable cursor-move select-none' ref={draggableRef}>
+  return <div className='draggable cursor-move'>
      {children}
   </div>
 }

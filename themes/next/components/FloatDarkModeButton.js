@@ -1,14 +1,13 @@
 import { useGlobal } from '@/lib/global'
-import { saveDarkModeToCookies } from '@/themes/theme'
+import { saveDarkModeToCookies } from '@/lib/theme'
 import CONFIG_NEXT from '../config_next'
 
 export default function FloatDarkModeButton () {
-  const { isDarkMode, updateDarkMode } = useGlobal()
-
   if (!CONFIG_NEXT.WIDGET_DARK_MODE) {
     return <></>
   }
 
+  const { isDarkMode, updateDarkMode } = useGlobal()
   // 用户手动设置主题
   const handleChangeDarkMode = () => {
     const newStatus = !isDarkMode

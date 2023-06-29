@@ -29,4 +29,3 @@ export const Layout404 = props => {
     </div>
   </LayoutBase>
 }
-export default Layout404

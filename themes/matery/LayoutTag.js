@@ -6,6 +6,7 @@ import React from 'react'
 import HeaderArticle from './components/HeaderArticle'
 import { useGlobal } from '@/lib/global'
 import TagItemMiddle from './components/TagItemMiddle'
+import TagItemMini from './components/TagItemMini'
 
 export const LayoutTag = (props) => {
   const { tagOptions, tag } = props
@@ -23,7 +24,7 @@ export const LayoutTag = (props) => {
                 </div>
 
                 <div id="tags-list" className="duration-200 flex flex-wrap justify-center pb-12">
-                    {tagOptions?.map(e => {
+                    {tagOptions.map(e => {
                       const selected = tag === e.name
                       return (
                             <div key={e.id} className="p-2">
@@ -40,5 +41,3 @@ export const LayoutTag = (props) => {
 
     </LayoutBase>
 }
-
-export default LayoutTag

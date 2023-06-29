@@ -1,5 +1,5 @@
 import { useGlobal } from '@/lib/global'
-import { saveDarkModeToCookies } from '@/themes/theme'
+import { saveDarkModeToCookies } from '@/lib/theme'
 import CONFIG_MATERY from '../config_matery'
 
 export default function FloatDarkModeButton() {

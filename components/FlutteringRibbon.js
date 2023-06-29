@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { useEffect } from 'react'
+import React from 'react'
 const  id = 'canvasFlutteringRibbon'
 export const FlutteringRibbon = () => {
      const destroyRibbon = ()=>{
@@ -9,16 +9,14 @@ export const FlutteringRibbon = () => {
       }
   }
   
-  useEffect(() => {
+  React.useEffect(() => {
     createFlutteringRibbon()
         return () => destroyRibbon()
 
   }, [])
     return <></>
+
 }
-
-export default FlutteringRibbon
-
 
 /**
  * 创建连接点

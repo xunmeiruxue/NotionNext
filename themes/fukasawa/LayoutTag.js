@@ -1,6 +1,7 @@
 import BLOG from '@/blog.config'
 import BlogListPage from './components/BlogListPage'
 import BlogListScroll from './components/BlogListScroll'
+import TagItemMini from './components/TagItemMini'
 import LayoutBase from './LayoutBase'
 
 export const LayoutTag = (props) => {
@@ -8,5 +9,3 @@ export const LayoutTag = (props) => {
     {BLOG.POST_LIST_STYLE === 'page' ? <BlogListPage {...props} /> : <BlogListScroll {...props}/>}
   </LayoutBase>
 }
-
-export default LayoutTag

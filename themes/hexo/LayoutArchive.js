@@ -32,5 +32,3 @@ export const LayoutArchive = (props) => {
     </Card>
   </LayoutBase>
 }
-
-export default LayoutArchive

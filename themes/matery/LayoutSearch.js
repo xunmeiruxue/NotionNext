@@ -97,5 +97,3 @@ export const LayoutSearch = props => {
       </LayoutBase>
   )
 }
-
-export default LayoutSearch

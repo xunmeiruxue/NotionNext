@@ -6,7 +6,7 @@ import React from 'react'
 import Link from 'next/link'
 
 export const LayoutTag = (props) => {
-  const tag = props?.tagOptions?.find((t) => {
+  const tag = props.tagOptions.find((t) => {
     return t.name === props.tag
   })
 
@@ -30,5 +30,3 @@ export const LayoutTag = (props) => {
         </LayoutBase>
   )
 }
-
-export default LayoutTag

@@ -2,7 +2,7 @@
 import { useEffect } from 'react'
 const id = 'canvasRibbon'
 
-const Ribbon = () => {
+export const Ribbon = () => {
  const destroyRibbon = ()=>{
     const ribbon = document.getElementById(id)
       if(ribbon && ribbon.parentNode){
@@ -16,8 +16,6 @@ const Ribbon = () => {
   }, [])
   return <></>
 }
-
-export default Ribbon
 
 /**
  * 创建连接点

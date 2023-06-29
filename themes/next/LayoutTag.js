@@ -20,5 +20,3 @@ export const LayoutTag = (props) => {
         </div>
     </LayoutBase>
 }
-
-export default LayoutTag

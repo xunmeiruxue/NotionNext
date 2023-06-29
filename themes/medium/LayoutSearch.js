@@ -49,5 +49,3 @@ export const LayoutSearch = (props) => {
     </div>}
   </LayoutBase>
 }
-
-export default LayoutSearch

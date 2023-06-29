@@ -8,5 +8,3 @@ export const LayoutPage = (props) => {
 
   </LayoutBase>
 }
-
-export default LayoutPage

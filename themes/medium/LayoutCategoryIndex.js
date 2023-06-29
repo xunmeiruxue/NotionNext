@@ -31,4 +31,3 @@ export const LayoutCategoryIndex = (props) => {
     </LayoutBase>
   )
 }
-export default LayoutCategoryIndex

@@ -1,14 +1,15 @@
 import BLOG from '@/blog.config'
 import { getPostBlocks } from '@/lib/notion'
 import { getGlobalNotionData } from '@/lib/notion/getNotionData'
-import { useEffect, useState } from 'react'
+import { useGlobal } from '@/lib/global'
+import * as ThemeMap from '@/themes'
+import React from 'react'
 import { idToUuid } from 'notion-utils'
-import { useRouter } from 'next/router'
+import Router from 'next/router'
+import { isBrowser } from '@/lib/utils'
 import { getNotion } from '@/lib/notion/getNotion'
 import { getPageTableOfContents } from '@/lib/notion/getPageTableOfContents'
-import { getLayoutByTheme } from '@/themes/theme'
 import md5 from 'js-md5'
-import { isBrowser } from '@/lib/utils'
 
 /**
  * 根据notion的slug访问页面
@@ -16,18 +17,50 @@ import { isBrowser } from '@/lib/utils'
  * @returns
  */
 const Slug = props => {
+  const { theme, changeLoadingState } = useGlobal()
+  const ThemeComponents = ThemeMap[theme]
   const { post, siteInfo } = props
-  const router = useRouter()
+  const router = Router.useRouter()
 
   // 文章锁🔐
-  const [lock, setLock] = useState(post?.password && post?.password !== '')
+  const [lock, setLock] = React.useState(post?.password && post?.password !== '')
+
+  React.useEffect(() => {
+    changeLoadingState(false)
+    if (post?.password && post?.password !== '') {
+      setLock(true)
+    } else {
+      if (!lock && post?.blockMap?.block) {
+        post.content = Object.keys(post.blockMap.block).filter(key => post.blockMap.block[key]?.value?.parent_id === post.id)
+        post.toc = getPageTableOfContents(post, post.blockMap)
+      }
+
+      setLock(false)
+    }
+  }, [post])
+
+  if (!post) {
+    setTimeout(() => {
+      if (isBrowser()) {
+        const article = document.getElementById('container')
+        if (!article) {
+          router.push('/404').then(() => {
+            console.warn('找不到页面', router.asPath)
+          })
+        }
+      }
+    }, 8 * 1000) // 404时长 8秒
+    const meta = { title: `${props?.siteInfo?.title || BLOG.TITLE} | loading`, image: siteInfo?.pageCover || BLOG.HOME_BANNER_IMAGE }
+    return <ThemeComponents.LayoutSlug {...props} showArticleInfo={true} meta={meta} />
+  }
 
   /**
    * 验证文章密码
    * @param {*} result
-  */
+   */
   const validPassword = passInput => {
     const encrypt = md5(post.slug + passInput)
+
     if (passInput && encrypt === post.password) {
       setLock(false)
       return true
@@ -35,50 +68,25 @@ const Slug = props => {
     return false
   }
 
-  // 文章加载
-  useEffect(() => {
-    // 404
-    if (!post) {
-      setTimeout(() => {
-        if (isBrowser()) {
-          const article = document.getElementById('notion-article')
-          if (!article) {
-            router.push('/404').then(() => {
-              console.warn('找不到页面', router.asPath)
-            })
-          }
-        }
-      }, 5 * 1000) // 404时长 8秒
-    }
-
-    // 文章加密
-    if (post?.password && post?.password !== '') {
-      setLock(true)
-    } else {
-      setLock(false)
-      if (!lock && post?.blockMap?.block) {
-        post.content = Object.keys(post.blockMap.block).filter(key => post.blockMap.block[key]?.value?.parent_id === post.id)
-        post.toc = getPageTableOfContents(post, post.blockMap)
-      }
-    }
-    router.events.on('routeChangeComplete', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    })
-  }, [post])
+  props = { ...props, lock, setLock, validPassword }
 
   const meta = {
-    title: post ? `${post?.title} | ${siteInfo?.title}` : `${props?.siteInfo?.title || BLOG.TITLE} | loading`,
+    title: `${post?.title} | ${siteInfo?.title}`,
     description: post?.summary,
     type: post?.type,
     slug: post?.slug,
-    image: post?.pageCoverThumbnail || (siteInfo?.pageCover || BLOG.HOME_BANNER_IMAGE),
+    image: post?.page_cover,
     category: post?.category?.[0],
     tags: post?.tags
   }
-  props = { ...props, lock, meta, setLock, validPassword }
-  // 根据页面路径加载不同Layout文件
-  const Layout = getLayoutByTheme(useRouter())
-  return <Layout {...props} />
+
+  Router.events.on('routeChangeComplete', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  })
+
+  return (
+    <ThemeComponents.LayoutSlug {...props} showArticleInfo={true} meta={meta} />
+  )
 }
 
 export async function getStaticPaths() {
@@ -107,7 +115,7 @@ export async function getStaticProps({ params: { slug } }) {
   const from = `slug-props-${fullSlug}`
   const props = await getGlobalNotionData({ from })
   // 在列表内查找文章
-  props.post = props?.allPages?.find((p) => {
+  props.post = props.allPages.find((p) => {
     return p.slug === fullSlug || p.id === idToUuid(fullSlug)
   })
 
@@ -122,7 +130,6 @@ export async function getStaticProps({ params: { slug } }) {
 
   // 无法获取文章
   if (!props?.post) {
-    props.post = null
     return { props, revalidate: parseInt(BLOG.NEXT_REVALIDATE_SECOND) }
   }
 

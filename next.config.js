@@ -2,9 +2,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true'
 })
 
-const { THEME } = require('./blog.config')
-const path = require('path')
-
 module.exports = withBundleAnalyzer({
   images: {
     // 图片压缩
@@ -67,11 +64,6 @@ module.exports = withBundleAnalyzer({
     //     'react-dom': 'preact/compat'
     //   })
     // }
-
-    // console.log(path.resolve(__dirname, 'themes', THEME))
-    // 动态主题：添加 resolve.alias 配置，将动态路径映射到实际路径
-    config.resolve.alias['@theme-components'] = path.resolve(__dirname, 'themes', THEME)
-
     return config
   }
 })

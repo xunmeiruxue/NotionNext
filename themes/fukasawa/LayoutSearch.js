@@ -28,5 +28,3 @@ export const LayoutSearch = (props) => {
     {BLOG.POST_LIST_STYLE === 'page' ? <BlogListPage {...props} /> : <BlogListScroll {...props}/>}
   </LayoutBase>
 }
-
-export default LayoutSearch

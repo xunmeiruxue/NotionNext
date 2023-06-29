@@ -8,5 +8,3 @@ export const LayoutTag = props => {
        {BLOG.POST_LIST_STYLE === 'page' ? <BlogListPage {...props} /> : <BlogListScroll {...props} />}
     </LayoutBase >
 }
-
-export default LayoutTag

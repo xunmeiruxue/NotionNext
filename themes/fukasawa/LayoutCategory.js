@@ -8,5 +8,3 @@ export const LayoutCategory = props => {
     {BLOG.POST_LIST_STYLE === 'page' ? <BlogListPage {...props} /> : <BlogListScroll {...props}/>}
   </LayoutBase>
 }
-
-export default LayoutCategory

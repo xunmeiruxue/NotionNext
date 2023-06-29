@@ -1,4 +1,5 @@
 import { useGlobal } from '@/lib/global'
+import TagItem from './components/TagItem'
 import TagItemMini from './components/TagItemMini'
 import LayoutBase from './LayoutBase'
 
@@ -20,5 +21,3 @@ export const LayoutTagIndex = (props) => {
     </div>
   </LayoutBase>
 }
-
-export default LayoutTagIndex

@@ -45,5 +45,3 @@ export const LayoutArchive = props => {
     </LayoutBase>
   )
 }
-
-export default LayoutArchive

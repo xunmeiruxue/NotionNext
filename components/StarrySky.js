@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react'
 
-const StarrySky = () => {
+export const StarrySky = () => {
   React.useEffect(() => {
     dark()
   }, [])
@@ -12,7 +12,6 @@ const StarrySky = () => {
   )
 }
 
-export default StarrySky
 /**
  * 创建星空雨
  * @param config

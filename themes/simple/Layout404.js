@@ -5,5 +5,3 @@ export const Layout404 = (props) => {
         404 Not found.
     </LayoutBase>
 }
-
-export default Layout404
