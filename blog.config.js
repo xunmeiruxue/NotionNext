@@ -508,7 +508,7 @@ const BLOG = {
     category: process.env.NEXT_PUBLIC_NOTION_PROPERTY_CATEGORY || '分类',
     date: process.env.NEXT_PUBLIC_NOTION_PROPERTY_DATE || '日期',
     tags: process.env.NEXT_PUBLIC_NOTION_PROPERTY_TAGS || '标签',
-    icon: process.env.NEXT_PUBLIC_NOTION_PROPERTY_ICON || '图标'
+    icon: process.env.NEXT_PUBLIC_NOTION_PROPERTY_ICON || '图标',
     ext: process.env.NEXT_PUBLIC_NOTION_PROPERTY_EXT || 'ext' // 扩展字段，存放json-string，用于复杂业务
   },
 
