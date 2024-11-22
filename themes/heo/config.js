@@ -23,6 +23,8 @@ const CONFIG = {
   HEO_HERO_TITLE_4: '玉宇澄清万里埃',
   HEO_HERO_TITLE_5: '金猴奋起千钧棒，玉宇澄清万里埃',
   HEO_HERO_TITLE_LINK: 'https://fangmu.net',
+    // 英雄区遮罩文字
+  HEO_HERO_COVER_TITLE: '玉宇澄清万里埃',
 
   // 英雄区显示三个置顶分类
   HEO_HERO_CATEGORY_1: { title: '必看精选', url: '/tag/必看精选' },
