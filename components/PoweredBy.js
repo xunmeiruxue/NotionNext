@@ -6,7 +6,7 @@ import { siteConfig } from '@/lib/config'
  */
 export default function PoweredBy(props) {
   const version = siteConfig('VERSION')
-  if (siteConfig('POWERED_BY') === false) {
+  if (siteConfig('POWERED_BY') === false || siteConfig('POWERED_BY') === 'false') {
     return null
   }
   return (
